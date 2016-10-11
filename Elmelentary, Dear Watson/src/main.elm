@@ -7,31 +7,27 @@ import String
 
 main =
   App.beginnerProgram
-    { model = model
+    { model = ""
     , view = view
     , update = update
     }
 
 -- model
 
-type alias Model =
-  { list : String }
-
 -- update
 
 type Msg =
-  NewContent String | addToList String
+  NewContent String
 
-update : Msg -> Model -> Model
-update msg model =
-  case msg of
-    NewContent
+update (NewContent content) oldContent =
+  content
+
 -- view
 
 view content =
   div []
     [ div [ headStyle ] [ text "Grocery List"]
-    , input [ myStyle, placeholder "What to buy?", onInput NewContent, onSubmit addToList] []
+    , input [ myStyle, placeholder "What to buy?", onInput NewContent] []
     , div [ headStyle ] [ text (content) ]
     ]
 
