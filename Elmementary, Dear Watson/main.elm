@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
--- Start Here!
->>>>>>> c0b89f5c679092f45a5e14158c7ae46d6c350d9f
 port module Main exposing (..)
 
 import Dom
@@ -124,11 +120,7 @@ update msg model =
       { model | entries = List.filter (\t -> t.id /= id) model.entries }
           ! []
 
-<<<<<<< HEAD
     DeleteComplete ->
-=======
-    DeleteComplete
->>>>>>> c0b89f5c679092f45a5e14158c7ae46d6c350d9f
       { model | entries = List.filter (not << .completed) model.entries }
           ! []
 
@@ -159,11 +151,7 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-<<<<<<< HEAD
   div [ ]
-=======
-  div [ style[ ( "visibility", "hidden" ) ] ]
->>>>>>> c0b89f5c679092f45a5e14158c7ae46d6c350d9f
       [ section
           []
           [ lazy viewInput model.field
@@ -174,11 +162,7 @@ view model =
       ]
 
 viewInput : String -> Html Msg
-<<<<<<< HEAD
 viewInput grocery =
-=======
-viewInput task =
->>>>>>> c0b89f5c679092f45a5e14158c7ae46d6c350d9f
   header  []
           [ h1 [] [ text "Grocery List" ]
           , input
@@ -263,11 +247,7 @@ viewEntry grocery =
                 [ text grocery.description ]
             , button
                 [ onClick (Delete grocery.id) ]
-<<<<<<< HEAD
                 [ text "x" ]
-=======
-                []
->>>>>>> c0b89f5c679092f45a5e14158c7ae46d6c350d9f
             ]
       , input
             [ value grocery.description
@@ -341,8 +321,4 @@ viewControlsClear entriesCompleted =
 infoFooter : Html msg
 infoFooter =
   footer  [ ]
-<<<<<<< HEAD
           [ p [] [ ] ]
-=======
-          [ p [] [ text "Double-click to edit a list-item"] ]
->>>>>>> c0b89f5c679092f45a5e14158c7ae46d6c350d9f
