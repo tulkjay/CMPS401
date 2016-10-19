@@ -94,11 +94,11 @@ update msg model =
 
     EditingEntry id isEditing ->
       let
-        updateEntry t =
-          if t.id == id then
-              { t | editing = isEditing }
+        updateEntry gi =
+          if gi.id == id then
+              { gi | editing = isEditing }
           else
-              t
+              gi
         focus =
           Dom.focus ("grocery-" ++ toString id)
       in
@@ -107,17 +107,17 @@ update msg model =
 
     UpdateEntry id grocery ->
       let
-        updateEntry t =
-            if t.id == id then
-                { t | description = grocery }
+        updateEntry gi =
+            if gi.id == id then
+                { gi | description = grocery }
             else
-                t
+                gi
       in
         { model | entries = List.map updateEntry model.entries }
             ! []
 
     Delete id ->
-      { model | entries = List.filter (\t -> t.id /= id) model.entries }
+      { model | entries = List.filter (\gi -> gi.id /= id) model.entries }
           ! []
 
     DeleteComplete ->
@@ -126,19 +126,19 @@ update msg model =
 
     Check id isCompleted ->
       let
-        updateEntry t =
-            if t.id == id then
-                { t | completed = isCompleted }
+        updateEntry gi =
+            if gi.id == id then
+                { gi | completed = isCompleted }
             else
-                t
+                gi
       in
         { model | entries = List.map updateEntry model.entries }
             ! []
 
     CheckAll isCompleted ->
       let
-        updateEntry t =
-            { t | completed = isCompleted }
+        updateEntry gi =
+            { gi | completed = isCompleted }
       in
           { model | entries = List.map updateEntry model.entries }
               ! []
