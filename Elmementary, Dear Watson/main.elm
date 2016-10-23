@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
--- Start Here!
->>>>>>> c0b89f5c679092f45a5e14158c7ae46d6c350d9f
 port module Main exposing (..)
 
 import Dom
@@ -98,11 +94,11 @@ update msg model =
 
     EditingEntry id isEditing ->
       let
-        updateEntry t =
-          if t.id == id then
-              { t | editing = isEditing }
+        updateEntry gi =
+          if gi.id == id then
+              { gi | editing = isEditing }
           else
-              t
+              gi
         focus =
           Dom.focus ("grocery-" ++ toString id)
       in
@@ -111,42 +107,38 @@ update msg model =
 
     UpdateEntry id grocery ->
       let
-        updateEntry t =
-            if t.id == id then
-                { t | description = grocery }
+        updateEntry gi =
+            if gi.id == id then
+                { gi | description = grocery }
             else
-                t
+                gi
       in
         { model | entries = List.map updateEntry model.entries }
             ! []
 
     Delete id ->
-      { model | entries = List.filter (\t -> t.id /= id) model.entries }
+      { model | entries = List.filter (\gi -> gi.id /= id) model.entries }
           ! []
 
-<<<<<<< HEAD
     DeleteComplete ->
-=======
-    DeleteComplete
->>>>>>> c0b89f5c679092f45a5e14158c7ae46d6c350d9f
       { model | entries = List.filter (not << .completed) model.entries }
           ! []
 
     Check id isCompleted ->
       let
-        updateEntry t =
-            if t.id == id then
-                { t | completed = isCompleted }
+        updateEntry gi =
+            if gi.id == id then
+                { gi | completed = isCompleted }
             else
-                t
+                gi
       in
         { model | entries = List.map updateEntry model.entries }
             ! []
 
     CheckAll isCompleted ->
       let
-        updateEntry t =
-            { t | completed = isCompleted }
+        updateEntry gi =
+            { gi | completed = isCompleted }
       in
           { model | entries = List.map updateEntry model.entries }
               ! []
@@ -170,7 +162,6 @@ view model =
       ]
 
 viewInput : String -> Html Msg
-
 viewInput grocery =
   header  []
           [ h1 [] [ text "Grocery List" ]
@@ -257,7 +248,6 @@ viewEntry grocery =
             , button
                 [ onClick (Delete grocery.id) ]
                 [ text "x" ]
-
             ]
       , input
             [ value grocery.description
