@@ -1,0 +1,149 @@
+body{
+  height: 800px;
+  margin: 0;
+  padding: 0;
+  font-size: 1.5em;
+  font-family: monospace;
+  background-color:#274077;
+}
+.item-list{
+  height: 300px;
+  flex: auto;
+  overflow: scroll;
+}
+.add-button{
+  height: 60px;
+  vertical-align: middle;
+  width: 140px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 2px solid black;
+  background-color:#cecece;
+  margin: 5px 12px 5px 20px;
+  transition: background-color 0.5s, color 0.4s;
+}
+.checkbox{
+  width:20px;
+  height: 20px;
+  padding: 10px;
+  margin: 20px 10px 20px 15px;
+}
+.clear-complete-button{
+  height: 50px;
+  width: 300px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 2px solid black;
+  background-color:;
+  margin: 5px auto 5px 2px;
+  transition: background-color 0.5s, color 0.5s;
+}
+.clear-complete-button:hover{
+  background-color: #29ad01;
+  color:white;
+}
+button:hover{
+  background-color:#66cc69;
+  color:white;
+}
+.edit-label{
+  background-color:;
+  margin: 10px;
+}
+.filter-list{
+  font-size: 1.1em;
+  background-color:;
+  list-style: none;
+  padding: 5px;
+}
+.filter-container{
+  background-color:#8ef7ff;
+  position: relative;
+  margin-right: 10px;
+  margin-top: 10px;
+  list-style: none;
+  padding: 10px;
+}
+.header{
+  height: 250px;
+  font-size: 1.7em;
+  background-color:#f2ec4b;
+  border-radius: 10px;
+  margin: 5px auto 5px 20px;
+}
+.hidden{
+  position: absolute;
+  visibility: hidden;
+}
+.input{
+  font-size: 1.3em;
+  height: 40px;
+  width: 250px;
+  margin: 10px 20px 10px 10px;
+  padding: 5px 10px 5px 10px;
+  background-color:;
+  border-radius: 5px;
+  border:2px solid black;
+  transition: border-color 0.5s;
+}
+.input:focus{
+border-color: blue;
+
+}
+.input-container{
+  background-color:;
+  position: fixed;
+  margin-top: 10px;
+}
+.item-input{
+  font-size: 1em;
+  padding: 10px 20px 10px 20px;
+  margin: 20px auto 10px 50px;
+}
+.item-input:focus{
+  border: 3px solid blue;
+}
+.items-count-span{
+  color: white;
+  margin: 5px 20px 5px 20px;
+}
+.label{
+  margin: 0 10px 0 2px;
+  color:white;
+}
+.list{
+  color:white;
+  list-style-type:decimal;
+  list-style-position: outside;
+  margin: 10px 5px 10px 15px;
+}
+.outer-container{
+  margin: 10px;
+  padding: 15px;
+}
+.remove-button{
+  height: 50px;
+  width: 120px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 2px solid black;
+  background-color:;
+  margin: 5px auto 5px 2px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.remove-button:hover{
+  background-color: red;
+  color:white;
+}
+.sub-title{
+  font-size: 1.3em;
+  overflow: visible;
+  padding: 10px 10px 10px 40px;
+  margin: 10px 20px 10px 20px;
+}
+.title{
+  margin: 10px 20px 10px 20px;
+  padding: 10px 10px 10px 40px;
+  font-size: 2em;
+
+}

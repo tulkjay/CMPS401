@@ -151,22 +151,25 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-  div [ ]
+  div [ class "outer-container" ]
       [ section
-          []
+          [ class "container" ]
           [ lazy viewInput model.field
           , lazy2 viewEntries model.visibility model.entries
           , lazy2 viewControls model.visibility model.entries
           ]
-      , infoFooter
       ]
 
 viewInput : String -> Html Msg
 viewInput grocery =
-  header  []
-          [ h1 [] [ text "Grocery List" ]
+  header  [ class "header" ]
+          [ span [ class "title" ] [ text "Grocery List..." ]
+          , br [] []
+          , span [ class "sub-title" ] [ text "Commence the list construction!" ]
+          , br [] []
           , input
-              [ placeholder "What to buy?"
+              [ class "item-input"
+              , placeholder "New Item"
               , autofocus True
               , value grocery
               , name "newGrocery"
@@ -174,6 +177,7 @@ viewInput grocery =
               , onEnter Add
               ]
               []
+          , button [class "add-button",  onClick (Add)] [ text "Add"]
           ]
 
 onEnter : Msg -> Attribute Msg
@@ -193,10 +197,10 @@ viewEntries visibility entries =
   let
       isVisible grocery =
         case visibility of
-            "Completed" ->
+            "In the Buggy" ->
                 grocery.completed
 
-            "Active" ->
+            "On the Shelf" ->
                 not grocery.completed
 
             _ ->
@@ -213,20 +217,22 @@ viewEntries visibility entries =
   in
     section [ style [ ( "visibility", cssVisibility ) ] ]
             [ input
-                [ type' "checkbox"
+                [ class "checkbox"
+                , type' "checkbox"
                 , name "toggle"
                 , checked allCompleted
                 , onClick (CheckAll (not allCompleted))
                 ]
                 []
             , label
-                [ for "toggle-all" ]
+                [ class "label"
+                , for "toggle-all" ]
                 [ text "Mark all as complete" ]
-            , Keyed.ul [] <|
+            , Keyed.ul [ class "item-list" ] <|
                 List.map viewKeyedEntry (List.filter isVisible entries)
             ]
 
--- View individual entries
+-- View entries
 
 viewKeyedEntry : Entry -> ( String, Html Msg )
 viewKeyedEntry grocery =
@@ -234,33 +240,34 @@ viewKeyedEntry grocery =
 
 viewEntry : Entry -> Html Msg
 viewEntry grocery =
-  li  []
-      [ div []
+  li  [ class "list"]
+      [ div [ class "grocery-list-container"]
             [ input
-                [ type' "checkbox"
+                [ class "checkbox"
+                , type' "checkbox"
                 , checked grocery.completed
                 , onClick (Check grocery.id (not grocery.completed))
                 ]
                 []
-            , label
-                [ onDoubleClick (EditingEntry grocery.id True) ]
-                [ text grocery.description ]
+            ,input
+                  [ class "input strike"
+                  , value grocery.description
+                  , name "title"
+                  , id ("grocery-" ++ toString grocery.id)
+                  , onInput (UpdateEntry grocery.id)
+                  , onBlur (EditingEntry grocery.id False)
+                  , onEnter (EditingEntry grocery.id False)
+                  ]
+                  []
             , button
-                [ onClick (Delete grocery.id) ]
-                [ text "x" ]
+                [ class "remove-button strike"
+                , onClick (Delete grocery.id) ]
+                [ text "Remove" ]
             ]
-      , input
-            [ value grocery.description
-            , name "title"
-            , id ("grocery-" ++ toString grocery.id)
-            , onInput (UpdateEntry grocery.id)
-            , onBlur (EditingEntry grocery.id False)
-            , onEnter (EditingEntry grocery.id False)
-            ]
-            []
+
       ]
 
--- View controls and footer
+-- View controls
 
 viewControls : String -> List Entry -> Html Msg
 viewControls visibility entries =
@@ -287,38 +294,43 @@ viewControlsCount entriesLeft =
         else
             " items"
   in
-    span  []
+    span  [ class "items-count-span"]
           [ strong [] [ text (toString entriesLeft) ]
           , text (item_ ++ " left")
           ]
 
 viewControlsFilters : String -> Html Msg
 viewControlsFilters visibility =
-  ul  []
-      [ visibilitySwap "#/" "All" visibility
-      , text " "
-      , visibilitySwap "#/active" "Active" visibility
-      , text " "
-      , visibilitySwap "#/completed" "Completed" visibility
+  div [ class "filter-container" ]
+      [
+        p [ class "filter-header"]
+          [ text "Filters:"]
+        , ul  [ class "filter-list"]
+            [ visibilitySwap "#/" "All" visibility
+            , text " "
+            , visibilitySwap "#/active" "On the Shelf" visibility
+            , text " "
+            , visibilitySwap "#/completed" "In the Buggy" visibility
+            ]
       ]
+
 
 visibilitySwap : String -> String -> String -> Html Msg
 visibilitySwap uri visibility actualVisibility =
   li
     [ onClick (ChangeVisibility visibility) ]
-    [ a [ href uri, classList [ ( "selected", visibility == actualVisibility ) ] ]
-        [ text visibility ]
+    [ a
+      [ href uri, classList
+        [ ( "selected", visibility == actualVisibility ) ]
+        ]
+      [ text visibility ]
     ]
 
 viewControlsClear : Int -> Html Msg
 viewControlsClear entriesCompleted =
   button
     [ hidden (entriesCompleted == 0)
-    , onClick DeleteComplete
+      , class "clear-complete-button"
+      , onClick DeleteComplete
     ]
     [ text ("Clear completed (" ++ toString entriesCompleted ++ ")") ]
-
-infoFooter : Html msg
-infoFooter =
-  footer  [ ]
-          [ p [] [ ] ]
