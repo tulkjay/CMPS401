@@ -33,6 +33,7 @@ type alias Entry =
   { description : String
   , completed : Bool
   , editing : Bool
+  , quantity : Int
   , id : Int
   }
 
@@ -49,6 +50,7 @@ newEntry desc id =
   { description = desc
   , completed = False
   , editing = False
+  , quantity = 0
   , id = id
   }
 
@@ -65,6 +67,8 @@ type Msg
   | UpdateEntry Int String
   | Add
   | Delete Int
+  | Increment Int
+  | Decrement Int
   | DeleteComplete
   | Check Int Bool
   | CheckAll Bool
@@ -119,6 +123,28 @@ update msg model =
     Delete id ->
       { model | entries = List.filter (\gi -> gi.id /= id) model.entries }
           ! []
+
+    Increment id ->
+      let
+        updateEntry gi =
+            if gi.id == id then
+                { gi | quantity = gi.quantity + 1 }
+            else
+                gi
+      in
+        { model | entries = List.map updateEntry model.entries }
+            ! []
+
+    Decrement id ->
+      let
+        updateEntry gi =
+            if gi.id == id && gi.quantity > 0 then
+                { gi | quantity = gi.quantity - 1 }
+            else
+                gi
+      in
+        { model | entries = List.map updateEntry model.entries }
+            ! []
 
     DeleteComplete ->
       { model | entries = List.filter (not << .completed) model.entries }
@@ -259,6 +285,11 @@ viewEntry grocery =
                   , onEnter (EditingEntry grocery.id False)
                   ]
                   []
+            ,span []
+                  [ span [] [ text (toString grocery.quantity) ]
+                  , button [ onClick (Decrement grocery.id)] [ text "-" ]
+                  , button [ onClick (Increment grocery.id)] [ text "+" ]
+                  ]
             , button
                 [ class "remove-button strike"
                 , onClick (Delete grocery.id) ]
