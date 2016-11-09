@@ -34,6 +34,7 @@ type alias Entry =
   , completed : Bool
   , editing : Bool
   , quantity : Int
+  , analysis : String
   , id : Int
   }
 
@@ -51,6 +52,7 @@ newEntry desc id =
   , completed = False
   , editing = False
   , quantity = 0
+  , analysis = ""
   , id = id
   }
 
@@ -128,7 +130,22 @@ update msg model =
       let
         updateEntry gi =
             if gi.id == id then
-                { gi | quantity = gi.quantity + 1 }
+                { gi
+                | quantity = gi.quantity + 1
+                , analysis = case gi.quantity + 1 of
+                               0 -> "You need at least one."
+                               1 -> "Nice, you're getting it!"
+                               2 -> "Two, also a reasonable quantity..."
+                               3 -> "Three, the perfect maximum amount!"
+                               4 -> "How nice of you, getting food for the whole family."
+                               7 -> "One of us needs to settle down, now."
+                               10 -> "Okay..."
+                               13 -> ""
+                               18 -> "Yeah, I'm still here."
+                               22 -> "You're kidding, right?"
+                               30 -> "I don't even care anymore, I quit!"
+                               35 -> "Seriously, I quit!!!"
+                               _ -> gi.analysis}
             else
                 gi
       in
@@ -139,7 +156,22 @@ update msg model =
       let
         updateEntry gi =
             if gi.id == id && gi.quantity > 0 then
-                { gi | quantity = gi.quantity - 1 }
+                { gi
+                | quantity = gi.quantity - 1
+                , analysis = case gi.quantity - 1 of
+                               0 -> "You need at least one."
+                               1 -> "One is all you need."
+                               2 -> "That's what I call self control."
+                               3 -> "I thought so, too."
+                               5 -> "Much better."
+                               8 -> "Snap back to reality."
+                               12 -> "Lower..."
+                               18 -> "You really think that's enough? Keep going!"
+                               22 -> "Yeah, not even close, keep clicking"
+                               25 -> "Alright, fine. I forgive you."
+                               30 -> "Yeah, like that is going to make me happy now."
+                               34 -> "It's too late! We're done!"
+                               _ -> gi.analysis }
             else
                 gi
       in
@@ -290,6 +322,8 @@ viewEntry grocery =
                   , button [ onClick (Decrement grocery.id)] [ text "-" ]
                   , button [ onClick (Increment grocery.id)] [ text "+" ]
                   ]
+            , span []
+                  [ text grocery.analysis]
             , button
                 [ class "remove-button strike"
                 , onClick (Delete grocery.id) ]
