@@ -75,6 +75,7 @@ type Msg
   | Check Int Bool
   | CheckAll Bool
   | ChangeVisibility String
+  | ChangeFilter String
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -205,6 +206,13 @@ update msg model =
       { model | visibility = visibility }
           ! []
 
+    ChangeFilter description ->
+      let
+        updateEntry gi =
+            { gi | description = description }
+      in
+          { model | entries = List.map updateEntry model.entries }
+              ! []
 -- view
 
 view : Model -> Html Msg
@@ -376,8 +384,21 @@ viewControlsFilters visibility =
             , visibilitySwap "#/active" "On the Shelf" visibility
             , text " "
             , visibilitySwap "#/completed" "In the Buggy" visibility
+            , text " "
+            , filterSwap "#/test" "Slingblade Mode" "French Fried Taters"
+            , text " "
+            , filterSwap "#/test" "More Slingblade Mode" "No Biscuits"
             ]
       ]
+
+filterSwap : String -> String -> String -> Html Msg
+filterSwap uri filter filteredDescription =
+  li
+    [ onClick (ChangeFilter filteredDescription) ]
+    [ a
+      [ href uri ]
+      [ text filter ]
+    ]
 
 
 visibilitySwap : String -> String -> String -> Html Msg
