@@ -209,7 +209,15 @@ update msg model =
     ChangeFilter description ->
       let
         updateEntry gi =
-            { gi | description = description }
+            { gi | description = case description of
+                                  "Healthy Mode" -> case gi.description of
+                                                      "Pizza" -> "Heart Attack Pie"
+                                                      "Ice Cream" -> "Frozen Cow Snot"
+                                                      _ -> gi.description
+                                  "No Biscuits" -> "No Biscuits"
+                                  "Slingblade Mode" -> "French Fried Taters, mmhmm"
+                                  _ -> gi.description
+                              }
       in
           { model | entries = List.map updateEntry model.entries }
               ! []
@@ -221,8 +229,8 @@ view model =
       [ section
           [ class "container" ]
           [ lazy viewInput model.field
-          , lazy2 viewEntries model.visibility model.entries
           , lazy2 viewControls model.visibility model.entries
+          , lazy2 viewEntries model.visibility model.entries
           ]
       ]
 
@@ -385,9 +393,12 @@ viewControlsFilters visibility =
             , text " "
             , visibilitySwap "#/completed" "In the Buggy" visibility
             , text " "
-            , filterSwap "#/test" "Slingblade Mode" "French Fried Taters"
+            , filterSwap "#/test" "Slingblade Mode" "Slingblade Mode"
             , text " "
             , filterSwap "#/test" "More Slingblade Mode" "No Biscuits"
+            , text " "
+            , filterSwap "#/dietMode" "Healthy Mode" "Healthy Mode"
+            , text " "
             ]
       ]
 
