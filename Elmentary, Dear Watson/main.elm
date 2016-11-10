@@ -351,8 +351,9 @@ viewControlsFilters visibility =
             , text " "
             , visibilitySwap "#/completed" "In the Buggy" visibility
             , text " "
-            , filterSwap "#/test" "Slingblade Mode" "French Fried Taters, mmhmm"
-
+            , filterSwap "#/test" "Slingblade Mode" "French Fried Taters"
+            , text " "
+            , filterSwap "#/test" "More Slingblade Mode" "No Biscuits"
             ]
       ]
 
