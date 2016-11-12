@@ -210,12 +210,48 @@ update msg model =
       let
         updateEntry gi =
             { gi | description = case description of
-                                  "Healthy Mode" -> case gi.description of
-                                                      "Pizza" -> "Heart Attack Pie"
-                                                      "Ice Cream" -> "Frozen Cow Snot"
+                                  "Health Food" -> case gi.description of
+                                                      "Pizza" -> "Pizza = Heart Attack Pie"
+                                                      "Ice Cream" -> "Ice Cream = Frozen Cow Fluid"
+                                                      "Cake" -> "Cake = Pound Up"
+                                                      "Tacos"-> "Tacos = Loco"
+                                                      "Burritos" -> "Burritos = Caca"
+                                                      "Chimichanga" -> "No way Jose"
+                                                      "Sushi" -> "Sushi = good"
+                                                      "Spaghetti" -> "Spaghetti = Momma Mia"
+                                                      "Olives" -> "Olives = good"
+                                                      "Hamburger"-> "Hamburger = Hamburgler"
+                                                      "French Fried Taters" -> "Slingblade, hmmhmm"
                                                       _ -> gi.description
-                                  "No Biscuits" -> "No Biscuits"
-                                  "Slingblade Mode" -> "French Fried Taters, mmhmm"
+
+                                  "Mediterranean Food" -> case gi.description of
+                                                      "Tacos"-> "Tacos = Loco"
+                                                      "Burritos" -> "Burritos = Caca"
+                                                      "Chimichanga" -> "No way Jose"
+                                                      "Sushi" -> "Sushi = Too Fishy"
+                                                      "Pizza" -> "Pizza = good"
+                                                      "Spaghetti" -> "Spaghetti = good"
+                                                      "Olives" -> "Olives = good"
+                                                      "Ice Cream" -> "Ice Cream = Frozen Cow Fluid"
+                                                      "Cake" -> "Cake = Pound Up"
+                                                      "Hamburger"-> "Hamburger = Hamburgler"
+                                                      "French Fried Taters" -> "Slingblade, hmmhmm"
+                                                      _ -> gi.description
+
+                                  "Mexican Food" -> case gi.description of
+                                                      "Hamburger"-> "Hamburger = Hamburgler"
+                                                      "Calamari" -> "Calamari = Tend to Kills"
+                                                      "French Fried Taters" -> "Slingblade, hmmhmm"
+                                                      "Tacos"-> "Tacos = Bueno!"
+                                                      "Burritos" -> "Burritos = Bueno!"
+                                                      "Chimichanga" -> "Chitty Chitty Bang Bang"
+                                                      "Pizza" -> "Pizza = Heart Attack Pie"
+                                                      "Ice Cream" -> "Ice Cream = Frozen Cow Fluid"
+                                                      "Cake" -> "Cake = Pound Up"
+                                                      "Sushi" -> "Sushi = Too Fishy"
+                                                      "Spaghetti" -> "Spaghetti = Momma Mia"
+                                                      "Olives" -> "Olives = No Bueno"
+                                                      _ -> gi.description
                                   _ -> gi.description
                               }
       in
@@ -393,12 +429,13 @@ viewControlsFilters visibility =
             , text " "
             , visibilitySwap "#/completed" "In the Buggy" visibility
             , text " "
-            , filterSwap "#/test" "Slingblade Mode" "Slingblade Mode"
+            , filterSwap "#/HealthFood" "Health Food" "Health Food"
             , text " "
-            , filterSwap "#/test" "More Slingblade Mode" "No Biscuits"
+            , filterSwap "#/Mediterranean" "Mediterranean Food" "Mediterranean Food"
             , text " "
-            , filterSwap "#/dietMode" "Healthy Mode" "Healthy Mode"
+            , filterSwap "#/Mexican" "Mexican Food" "Mexican Food"
             , text " "
+
             ]
       ]
 
