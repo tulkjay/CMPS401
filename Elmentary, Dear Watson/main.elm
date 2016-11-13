@@ -369,13 +369,16 @@ viewEntry grocery =
                   , onEnter (EditingEntry grocery.id False)
                   ]
                   []
-            ,span []
-                  [ span [] [ text (toString grocery.quantity) ]
-                  , button [ onClick (Decrement grocery.id)] [ text "-" ]
-                  , button [ onClick (Increment grocery.id)] [ text "+" ]
-                  ]
-            , span []
-                  [ text grocery.analysis]
+            , span [ class "quantity-text"]
+                   [ text (toString grocery.quantity) ]
+            , span [ class "quantity-button-group"]
+                   [ button [ class "quantity-button"
+                   , onClick (Decrement grocery.id)] [ text "-" ]
+                   , button [ class "quantity-button"
+                   , onClick (Increment grocery.id)] [ text "+" ]
+                   ]
+            , span [ class "analysis"]
+                   [ text grocery.analysis]
             , button
                 [ class "remove-button strike"
                 , onClick (Delete grocery.id) ]
@@ -420,7 +423,7 @@ viewControlsFilters : String -> Html Msg
 viewControlsFilters visibility =
   div [ class "filter-container" ]
       [
-        p [ class "filter-header"]
+        span [ class "filter-header"]
           [ text "Filters:"]
         , ul  [ class "filter-list"]
             [ visibilitySwap "#/" "All" visibility
@@ -442,7 +445,8 @@ viewControlsFilters visibility =
 filterSwap : String -> String -> String -> Html Msg
 filterSwap uri filter filteredDescription =
   li
-    [ onClick (ChangeFilter filteredDescription) ]
+    [ class "filter-item"
+    , onClick (ChangeFilter filteredDescription) ]
     [ a
       [ href uri ]
       [ text filter ]
@@ -452,7 +456,8 @@ filterSwap uri filter filteredDescription =
 visibilitySwap : String -> String -> String -> Html Msg
 visibilitySwap uri visibility actualVisibility =
   li
-    [ onClick (ChangeVisibility visibility) ]
+    [ class "filter-item"
+    , onClick (ChangeVisibility visibility) ]
     [ a
       [ href uri, classList
         [ ( "selected", visibility == actualVisibility ) ]
