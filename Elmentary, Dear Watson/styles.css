@@ -6,10 +6,12 @@ body{
   font-family: monospace;
   background-color:#274077;
 }
-.item-list{
-  height: 300px;
-  flex: auto;
-  overflow: scroll;
+button:hover{
+  background-color:#66cc69;
+  color:white;
+}
+.analysis{
+  width: 380px;
 }
 .add-button{
   height: 60px;
@@ -42,19 +44,9 @@ body{
   background-color: #29ad01;
   color:white;
 }
-button:hover{
-  background-color:#66cc69;
-  color:white;
-}
 .edit-label{
   background-color:;
   margin: 10px;
-}
-.filter-list{
-  font-size: 1.1em;
-  background-color:;
-  list-style: none;
-  padding: 5px;
 }
 .filter-container{
   background-color:#8ef7ff;
@@ -63,6 +55,17 @@ button:hover{
   margin-top: 10px;
   list-style: none;
   padding: 10px;
+}
+.filter-item{
+  display: inline;
+  color: white !important;
+  padding: 0 5px 0 5px;
+}
+.filter-list{
+  font-size: 1.1em;
+  background-color:;
+  list-style: none;
+  padding: 5px;
 }
 .header{
   height: 250px;
@@ -88,12 +91,14 @@ button:hover{
 }
 .input:focus{
 border-color: blue;
-
 }
 .input-container{
-  background-color:;
   position: fixed;
   margin-top: 10px;
+}
+.items-count-span{
+  color: white;
+  margin: 15px 20px 5px 20px;
 }
 .item-input{
   font-size: 1em;
@@ -103,13 +108,15 @@ border-color: blue;
 .item-input:focus{
   border: 3px solid blue;
 }
-.items-count-span{
-  color: white;
-  margin: 5px 20px 5px 20px;
+.item-list{
+  height: 500px;
+  flex: auto;
+  overflow: scroll;
 }
 .label{
   margin: 0 10px 0 2px;
   color:white;
+  float: right;
 }
 .list{
   color:white;
@@ -120,6 +127,23 @@ border-color: blue;
 .outer-container{
   margin: 10px;
   padding: 15px;
+}
+.quantity-button{
+  width: 30px;
+  text-align: center !important;
+  padding: 0 4px 0 4px;
+  margin: 0 5px 5px auto;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  font-size: 1.2em;
+}
+.quantity-button-group{
+  margin: 0 5px 10px 5px;
+}
+.quantity-text{
+    font-size: 2em;
+    text-align: right;
 }
 .remove-button{
   height: 50px;
@@ -145,5 +169,4 @@ border-color: blue;
   margin: 10px 20px 10px 20px;
   padding: 10px 10px 10px 40px;
   font-size: 2em;
-
 }
