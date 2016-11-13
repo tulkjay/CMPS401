@@ -146,6 +146,7 @@ border-color: blue;
     text-align: right;
 }
 .remove-button{
+  float: right;
   height: 50px;
   width: 120px;
   font-size: 1em;

@@ -24,6 +24,7 @@ main =
 
 type alias Model =
   { entries : List Entry
+  , backup : List Entry
   , field : String
   , uid : Int
   , visibility : String
@@ -41,6 +42,7 @@ type alias Entry =
 emptyModel : Model
 emptyModel =
   { entries = []
+  , backup = []
   , visibility = "All"
   , field = ""
   , uid = 0
@@ -51,7 +53,7 @@ newEntry desc id =
   { description = desc
   , completed = False
   , editing = False
-  , quantity = 0
+  , quantity = 1
   , analysis = ""
   , id = id
   }
@@ -75,6 +77,7 @@ type Msg
   | Check Int Bool
   | CheckAll Bool
   | ChangeVisibility String
+  | ResetList
   | ChangeFilter String
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -92,6 +95,11 @@ update msg model =
                   model.entries
               else
                   model.entries ++ [ newEntry model.field model.uid ]
+          , backup =
+              if String.isEmpty model.field then
+                  model.backup
+              else
+                  model.backup ++ [ newEntry model.field model.uid ]
       }
           ! []
 
@@ -206,6 +214,10 @@ update msg model =
       { model | visibility = visibility }
           ! []
 
+    ResetList ->
+      { model | entries = model.backup }
+              ! []
+
     ChangeFilter description ->
       let
         updateEntry gi =
@@ -257,6 +269,7 @@ update msg model =
       in
           { model | entries = List.map updateEntry model.entries }
               ! []
+
 -- view
 
 view : Model -> Html Msg
@@ -432,6 +445,8 @@ viewControlsFilters visibility =
             , text " "
             , visibilitySwap "#/completed" "In the Buggy" visibility
             , text " "
+            , resetList "#/plain" "Plain Mode"
+            , text " "
             , filterSwap "#/HealthFood" "Health Food" "Health Food"
             , text " "
             , filterSwap "#/Mediterranean" "Mediterranean Food" "Mediterranean Food"
@@ -452,6 +467,15 @@ filterSwap uri filter filteredDescription =
       [ text filter ]
     ]
 
+resetList : String -> String -> Html Msg
+resetList uri filter =
+  li
+    [ class "filter-item"
+    , onClick ResetList ]
+    [ a
+       [ href uri ]
+       [ text filter ]
+    ]
 
 visibilitySwap : String -> String -> String -> Html Msg
 visibilitySwap uri visibility actualVisibility =
