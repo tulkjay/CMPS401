@@ -132,7 +132,8 @@ update msg model =
             ! []
 
     Delete id ->
-      { model | entries = List.filter (\gi -> gi.id /= id) model.entries }
+      { model | entries = List.filter (\gi -> gi.id /= id) model.entries
+              , backup = List.filter (\gi -> gi.id /= id) model.backup }
           ! []
 
     Increment id ->
@@ -173,8 +174,8 @@ update msg model =
                                2 -> "That's what I call self control."
                                3 -> "I thought so, too."
                                5 -> "Much better."
-                               8 -> "Snap back to reality."
-                               12 -> "Lower..."
+                               8 -> "Lower..."
+                               12 -> "Seriously, keep on clicking"
                                18 -> "You really think that's enough? Keep going!"
                                22 -> "Yeah, not even close, keep clicking"
                                25 -> "Alright, fine. I forgive you."
@@ -222,48 +223,33 @@ update msg model =
       let
         updateEntry gi =
             { gi | description = case description of
-                                  "Health Food" -> case gi.description of
-                                                      "Pizza" -> "Pizza = Heart Attack Pie"
-                                                      "Ice Cream" -> "Ice Cream = Frozen Cow Fluid"
-                                                      "Cake" -> "Cake = Pound Up"
-                                                      "Taco"-> "Taco = Loco"
-                                                      "Burrito" -> "Burrito = Caca"
-                                                      "Chimichanga" -> "No way Jose"
-                                                      "Sushi" -> "Sushi = good"
-                                                      "Spaghetti" -> "Spaghetti = Momma Mia"
-                                                      "Olive" -> "Olive = good"
-                                                      "Hamburger"-> "Hamburger = Hamburgler"
-                                                      "French Fried Tater" -> "Slingblade, hmmhmm"
+                                  "Healthy Mode" -> case String.toLower gi.description of
+                                                      "taco"-> "Spinach"
+                                                      "pizza" -> "Pig Cheese Pie"
+                                                      "ice cream" -> "Frozen Cow Juice"
+                                                      "cake" -> "Kale"
+                                                      "spaghetti" -> "More Kale"
                                                       _ -> gi.description
+                                  "Vacation Mode" -> case String.toLower gi.description of
+                                                      "taco"-> "Fourth Meal"
+                                                      "pizza" -> "Dinner"
+                                                      "ice Cream" -> "Breakfast"
+                                                      "cake" -> "Mid-morning snack"
+                                                      "spaghetti" -> "Lunch"
+                                                      _ -> gi.description
+                                  "Italian Mode" -> case String.toLower gi.description of
+                                                      "taco"-> "Carne Tortilla Riempita"
+                                                      "ice Cream" -> "Gelato"
+                                                      "cake" -> "Torta"
+                                                      _ -> gi.description
+                                  "Spanish Mode" -> case String.toLower gi.description of
+                                                      "ice cream" -> "Helado"
+                                                      "cake" -> "Pastel"
+                                                      "spaghetti" -> "Espagueti"
+                                                      _ -> gi.description
+                                  "Diet Mode" -> "Fat Free " ++ gi.description
+                                  "Slingblade Mode" -> "Taters, mmhmm"
 
-                                  "Mediterranean Food" -> case gi.description of
-                                                      "Taco"-> "Taco = Loco"
-                                                      "Burrito" -> "Burrito = Caca"
-                                                      "Chimichanga" -> "No way Jose"
-                                                      "Sushi" -> "Sushi = Too Fishy"
-                                                      "Pizza" -> "Pizza = good"
-                                                      "Spaghetti" -> "Spaghetti = good"
-                                                      "Olive" -> "Olive = good"
-                                                      "Ice Cream" -> "Ice Cream = Frozen Cow Fluid"
-                                                      "Cake" -> "Cake = Pound Up"
-                                                      "Hamburger"-> "Hamburger = Hamburgler"
-                                                      "French Fried Tater" -> "Slingblade, hmmhmm"
-                                                      _ -> gi.description
-
-                                  "Mexican Food" -> case gi.description of
-                                                      "Hamburger"-> "Hamburger = Hamburgler"
-                                                      "Calamari" -> "Calamari = Tend to Kills"
-                                                      "French Fried Tater" -> "Slingblade, hmmhmm"
-                                                      "Taco"-> "Taco = Bueno!"
-                                                      "Burrito" -> "Burrito = Bueno!"
-                                                      "Chimichanga" -> "Chitty Chitty Bang Bang"
-                                                      "Pizza" -> "Pizza = Heart Attack Pie"
-                                                      "Ice Cream" -> "Ice Cream = Frozen Cow Fluid"
-                                                      "Cake" -> "Cake = Pound Up"
-                                                      "Sushi" -> "Sushi = Too Fishy"
-                                                      "Spaghetti" -> "Spaghetti = Momma Mia"
-                                                      "Olive" -> "Olive = No Bueno"
-                                                      _ -> gi.description
                                   _ -> gi.description
                               }
       in
@@ -447,13 +433,18 @@ viewControlsFilters visibility =
             , text " "
             , resetList "#/plain" "Plain Mode"
             , text " "
-            , filterSwap "#/HealthFood" "Health Food" "Health Food"
+            , filterSwap "#/Italian" "Italian Mode" "Italian Mode"
             , text " "
-            , filterSwap "#/Mediterranean" "Mediterranean Food" "Mediterranean Food"
+            , filterSwap "#/Spanish" "Spanish Mode" "Spanish Mode"
             , text " "
-            , filterSwap "#/Mexican" "Mexican Food" "Mexican Food"
+            , filterSwap "#/Healthy" "Healthy Mode" "Healthy Mode"
             , text " "
-
+            , filterSwap "#/Diet" "Diet Mode" "Diet Mode"
+            , text " "
+            , filterSwap "#/Vacation" "Vacation Mode" "Vacation Mode"
+            , text " "
+            , filterSwap "#/Slingblade" "Slingblade Mode" "Slingblade Mode"
+            , text " "
             ]
       ]
 
