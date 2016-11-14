@@ -1,14 +1,13 @@
 # CMPS401
 * Survey of programming languages
 
-## Program Elm:
-* Shopping List
- *Interactive*
-
-* For Midterms:
-  * User can:
-  * Add shopping categories,
-  * Add items to list (in categories).
+## Elmentary, Dear Watson:
+* *Interactive* Shopping List
+* Users can:
+  * Add, Edit, and Remove items to list.
+  * Change the quantity of the items in the list.
+  * Receive feedback from a built in quantity analyzer.
+  * Filter the list based off of a dictionary of predefined filters.
 
 ## Getting Started
 * Prerequisites
@@ -81,7 +80,7 @@
 
 * The Catch
   * Tldr: Guestimate and add class assignments in your elm file as you build the UI. That way, you won't have to rebuild the project every time you want to add or change a class in the elm file.
-  
+
   * As alluded to earlier, the general approach for this method is to design as much of your UI as possible before adding the CSS. This is because elm-make will take a "snapshot" of your current elm files, and turn them into a regular Html project. This means that you will be able to manipulate the CSS as you like, but it will only take effect if you have already assigned the class name to the element in your elm file.
 
   * In order to work around this, there are two options:
