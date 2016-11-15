@@ -239,7 +239,7 @@ update msg model =
                                                       _ -> gi.description
                                   "Italian Mode" -> case String.toLower gi.description of
                                                       "taco"-> "Carne Tortilla Riempita"
-                                                      "ice Cream" -> "Gelato"
+                                                      "ice cream" -> "Gelato"
                                                       "cake" -> "Torta"
                                                       _ -> gi.description
                                   "Spanish Mode" -> case String.toLower gi.description of
